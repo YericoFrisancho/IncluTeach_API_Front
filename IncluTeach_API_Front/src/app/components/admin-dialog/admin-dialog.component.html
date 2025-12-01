@@ -1,1 +1,32 @@
-<p>admin-dialog works!</p>
+<h2 mat-dialog-title>Nuevo Administrador</h2>
+
+<mat-dialog-content>
+  <p>Ingresa los datos para la nueva cuenta de administrador.</p>
+  
+  <form class="admin-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre Completo</mat-label>
+      <input matInput [(ngModel)]="adminData.nombre" name="nombre" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuario</mat-label>
+      <input matInput [(ngModel)]="adminData.username" name="username" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="adminData.email" name="email" type="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [(ngModel)]="adminData.contrasena" name="contrasena" type="password" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">Crear Administrador</button>
+</mat-dialog-actions>
