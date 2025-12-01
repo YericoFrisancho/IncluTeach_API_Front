@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary-color: #C7DFCE; 
+  --primary-dark: #00796B;
+  --navbar-bg: rgba(77, 182, 172, 0.95);
+  --font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: #f5f5f5;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4DB6AC 0%, #E0F2F1 100%); 
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
