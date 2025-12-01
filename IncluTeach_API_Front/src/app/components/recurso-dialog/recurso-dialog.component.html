@@ -1,1 +1,27 @@
-<p>recurso-dialog works!</p>
+<h2 mat-dialog-title>{{ titulo }}</h2>
+<mat-dialog-content>
+  <form style="display: flex; flex-direction: column; min-width: 400px; gap: 10px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Título del Recurso</mat-label>
+      <input matInput [(ngModel)]="recurso.titulo" name="tit" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="recurso.categoriaId" name="cat" required>
+        @for (c of categorias; track c.id) {
+          <mat-option [value]="c.id">{{ c.nombre }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción / Enlace / Contenido</mat-label>
+      <textarea matInput [(ngModel)]="recurso.descripcion" name="desc" rows="4" required></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+</mat-dialog-actions>
