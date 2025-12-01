@@ -8,7 +8,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ComentarioService } from '../../services/comentario.service';
 import { AuthService } from '../../services/auth.service';
 import { ComentarioDialogComponent } from '../../components/comentario-dialog/comentario-dialog.component';
-import { ExternalApiService } from '../../services/external-api.service'; // <--- IMPORTAR
+import { ExternalApiService } from '../../services/external-api.service';
 
 @Component({
   selector: 'app-comentarios',
@@ -26,7 +26,6 @@ export class ComentariosComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snack = inject(MatSnackBar);
   
-  // 👇👇 HACEMOS PÚBLICO EL SERVICIO DE AVATARES 👇👇
   public externalApi = inject(ExternalApiService);
 
   publicacion: any;

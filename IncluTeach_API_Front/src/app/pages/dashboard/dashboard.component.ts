@@ -20,7 +20,7 @@ import { ExternalApiService } from '../../services/external-api.service';
     NavbarComponent
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'] // O .css según tu proyecto
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   public authService = inject(AuthService);

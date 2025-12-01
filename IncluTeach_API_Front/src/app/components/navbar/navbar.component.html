@@ -16,19 +16,16 @@
         
         <div class="btn-content">
           
-          
           <div class="avatar-wrapper"
                [matBadge]="(notiService.contador$ | async)" 
                [matBadgeHidden]="(notiService.contador$ | async) === 0"
                matBadgeColor="warn"
                matBadgeSize="small">
                
-            
             <img [src]="externalApi.getAvatarUrl((userName$ | async)!)" 
                  alt="Avatar"
                  class="nav-avatar">
           </div>
-          
 
           <span>{{ userDisplayName$ | async }}</span>
           

@@ -15,7 +15,12 @@
         @for (foro of forosTodos; track foro.id) {
           <mat-card class="foro-card">
             <mat-card-header>
-              <div mat-card-avatar class="avatar"><mat-icon>forum</mat-icon></div>
+              
+              <img mat-card-avatar 
+                   [src]="externalApi.getAvatarUrl(foro.nombreUsuario || 'user')" 
+                   alt="Avatar" 
+                   class="avatar-img">
+
               <mat-card-title>{{ foro.titulo }}</mat-card-title>
               
               <mat-card-subtitle>
@@ -68,7 +73,12 @@
         @for (foro of forosSeguidos; track foro.id) {
           <mat-card class="foro-card seguido">
             <mat-card-header>
-              <div mat-card-avatar class="avatar seguido"><mat-icon>star</mat-icon></div>
+              
+              <img mat-card-avatar 
+                   [src]="externalApi.getAvatarUrl(foro.nombreUsuario || 'user')" 
+                   alt="Avatar" 
+                   class="avatar-img">
+
               <mat-card-title>
                 {{ foro.titulo }}
                 @if (foro.notificacionesActivas) {

@@ -75,14 +75,12 @@
       <mat-card class="filter-card">
         <div class="controls">
           
-          <!-- 👇 AQUÍ ESTÁ EL CAMBIO PARA LIMPIAR RESULTADOS 👇 -->
           <mat-radio-group 
               [(ngModel)]="tipoExplorar" 
               (change)="onTipoChange()"
               color="primary" 
               class="radio-group">
             <mat-radio-button value="FORO">Foros</mat-radio-button>
-            <mat-radio-button value="RECURSO">Recursos</mat-radio-button>
           </mat-radio-group>
 
           <mat-form-field appearance="outline" class="fill-remaining">
@@ -94,7 +92,6 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- BOTÓN BUSCAR CON CLICK -->
           <button mat-raised-button color="accent" 
                   (click)="buscar()" 
                   [disabled]="!categoriaSeleccionadaId">
@@ -116,7 +113,6 @@
             <mat-card-content><p>{{ item.descripcion }}</p></mat-card-content>
             <mat-card-actions align="end">
               
-              <!-- BOTÓN VER DETALLE CON CLICK -->
               <button mat-button color="primary" (click)="verDetalle(item)">
                 VER DETALLE
               </button>

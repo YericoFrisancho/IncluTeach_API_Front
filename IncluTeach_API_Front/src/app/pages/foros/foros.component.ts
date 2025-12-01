@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { NotificacionService } from '../../services/notificacion.service';
 import { ForoDialogComponent } from '../../components/foro-dialog/foro-dialog.component';
 import { PublicacionesComponent } from '../publicaciones/publicaciones.component';
+import { ExternalApiService } from '../../services/external-api.service';
 
 @Component({
   selector: 'app-foros',
@@ -32,6 +33,8 @@ export class ForosComponent implements OnInit {
   notiService = inject(NotificacionService);
   dialog = inject(MatDialog);
   snack = inject(MatSnackBar);
+  
+  public externalApi = inject(ExternalApiService);
 
   forosTodos: any[] = [];
   forosSeguidos: any[] = [];
@@ -51,7 +54,6 @@ export class ForosComponent implements OnInit {
     }
   }
 
-
   esMio(foro: any): boolean {
     return foro.usuarioId === this.userId;
   }
@@ -64,23 +66,19 @@ export class ForosComponent implements OnInit {
     return this.forosSeguidos.some(f => f.id === foroId);
   }
 
-
   toggleNotificacion(foro: any) {
     if (!this.userId) return;
 
     this.notiService.toggle(this.userId, foro.id).subscribe({
       next: (res) => {
         const estaActivado = res.mensaje === 'ACTIVADO';
-        
         foro.notificacionesActivas = estaActivado;
-        
-        const texto = estaActivado ? 'Notificaciones ACTIVADAS' : 'Notificaciones DESACTIVADAS 🔕';
+        const texto = estaActivado ? 'Notificaciones ACTIVADAS 🔔' : 'Notificaciones DESACTIVADAS 🔕';
         this.snack.open(texto, 'OK', { duration: 2000 });
       },
       error: () => this.snack.open('Error al cambiar notificación', 'Cerrar')
     });
   }
-
 
   verPublicaciones(foro: any) {
     this.dialog.open(PublicacionesComponent, {
@@ -115,7 +113,6 @@ export class ForosComponent implements OnInit {
       });
     }
   }
-
 
   crear() {
     const ref = this.dialog.open(ForoDialogComponent, { width: '500px' });

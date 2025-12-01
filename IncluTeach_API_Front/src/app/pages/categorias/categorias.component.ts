@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// Material Modules
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-// Componentes y Servicios
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CategoriaDialogComponent } from '../../components/categoria-dialog/categoria-dialog.component';
 import { PublicacionesComponent } from '../publicaciones/publicaciones.component';
@@ -76,10 +74,9 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
-  // --- NUEVO MÉTODO PARA LIMPIAR AL CAMBIAR RADIO BUTTON ---
   onTipoChange() {
-    this.resultados = []; // Limpia la lista visualmente
-    this.busquedaRealizada = false; // Oculta mensaje de "no resultados"
+    this.resultados = [];
+    this.busquedaRealizada = false;
   }
 
   puedeEditar(cat: any): boolean {
@@ -136,7 +133,6 @@ export class CategoriasComponent implements OnInit {
         error: () => this.snack.open('Error al cargar foros', 'Cerrar')
       });
     } else {
-      // Asegúrate de que tu RecursoService tenga este método
       this.recursoService.getRecursosPorCategoria(this.categoriaSeleccionadaId).subscribe({
         next: (data) => this.resultados = data,
         error: () => this.snack.open('Error al cargar recursos', 'Cerrar')
@@ -153,7 +149,6 @@ export class CategoriasComponent implements OnInit {
         data: item
       });
     } else {
-      // Detalle simple para Recursos
       alert(`Recurso: ${item.titulo}\n\n${item.descripcion}`);
     }
   }

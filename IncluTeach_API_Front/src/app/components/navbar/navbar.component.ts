@@ -34,12 +34,10 @@ export class NavbarComponent implements OnInit {
   public externalApi = inject(ExternalApiService);
   private router = inject(Router);
 
-  
   userName$: Observable<string> = this.authService.currentUser$.pipe(
     map(user => user?.username || 'user')
   );
 
-  
   userDisplayName$: Observable<string | null> = this.authService.currentUser$.pipe(
     map(user => {
       if (!user) return null;
