@@ -11,7 +11,7 @@
   justify-content: center;
   gap: 60px;
   margin-top: 50px;
-  flex-wrap: wrap; /* Para móviles */
+  flex-wrap: wrap; 
 }
 
 .columna {
@@ -20,13 +20,13 @@
   gap: 20px;
 }
 
-/* Títulos de secciones */
+
 .columna h3 {
   color: #555;
   border-bottom: 2px solid #00796B;
   padding-bottom: 5px;
   margin-bottom: 10px;
-  text-align: center; /* También centramos los títulos de sección para que se vea ordenado */
+  text-align: center; 
 }
 
 .btn-consulta {
@@ -41,9 +41,9 @@
   cursor: pointer;
   transition: 0.2s;
   
-  /* --- CAMBIO AQUÍ: Centrado --- */
+
   text-align: center; 
-  display: flex;            /* Flex para centrar vertical y horizontalmente si hay íconos */
+  display: flex;            
   justify-content: center;
   align-items: center;
 }
@@ -53,7 +53,7 @@
   transform: scale(1.03);
 }
 
-/* Botón Volver */
+
 .btn-back {
   position: absolute;
   top: 80px;
@@ -67,7 +67,7 @@
   font-weight: bold;
 }
 
-/* Modal */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -105,7 +105,7 @@
   box-sizing: border-box;
   font-size: 16px;
   background-color: white;
-  text-align: center; /* Texto centrado al escribir */
+  text-align: center; 
 }
 
 .modal-input::placeholder {
@@ -136,7 +136,7 @@
   border: none;
 }
 
-/* --- RESULTADOS --- */
+
 .resultados-contenedor {
   width: 90%;
   max-width: 1000px;
@@ -144,7 +144,7 @@
   scroll-margin-top: 120px; 
 }
 
-/* Tabla */
+
 .tabla-wrapper {
   width: 100%;
   background: white;
@@ -179,7 +179,7 @@
   background: #e2f4f3;
 }
 
-/* Vista Número Grande */
+
 .numero-box {
   text-align: center;
   padding: 40px;
@@ -195,7 +195,7 @@
   font-weight: bold;
 }
 
-/* Animación */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }

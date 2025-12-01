@@ -90,9 +90,6 @@ export class ConsultasComponent {
     }, 100);
   }
 
-  // =========================================================
-  //   GRÁFICOS
-  // =========================================================
 
   graficoUsuariosPorRol() {
     this.limpiarVista();
@@ -114,10 +111,10 @@ export class ConsultasComponent {
 
   graficoRecursosPorCategoria() {
     this.limpiarVista();
-    // Usamos .listar() que ahora sí existe en RecursoService
+
     this.recursoService.listar().subscribe(lista => this.prepareTable(lista));
     
-    // CORREGIDO: Llamamos a Categorias, no Foros
+
     this.recursoService.getEstadisticasCategorias().subscribe((stats: any) => {
        this.renderChartFromStats(stats, 'doughnut', 'Recursos por Categoría');
     });
@@ -146,9 +143,6 @@ export class ConsultasComponent {
     this.renderChart(type, labels, values, title, indexAxis);
   }
 
-  // =========================================================
-  //   OTRAS CONSULTAS
-  // =========================================================
   usuariosConFavoritos() {
     this.limpiarVista();
     this.userService.getUsuariosConFavoritos().subscribe(r => this.prepareTable(r));
@@ -159,41 +153,37 @@ export class ConsultasComponent {
     this.userService.getUsuariosQueSiguenForos().subscribe(r => this.prepareTable(r));
   }
 
-  // --- MODAL LOGIC (Corregido para cargar listas) ---
   openModal(action: string, title: string) {
     this.modalAction = action;
     this.modalTitle = title;
     this.inputValue = '';
     
-    // Aquí es donde decimos: "Si abres este modal, carga ESTA lista del backend"
     switch (action) {
-      
-      // 1. Si el modal pide USUARIOS
-      case 'publicacionesPorUsuario': // <--- Faltaba este
+
+      case 'publicacionesPorUsuario': 
       case 'notificacionesPorUsuario':
       case 'noLeidas':
         this.userService.listar().subscribe(data => {
             this.listaUsuarios = data;
-            console.log("Usuarios cargados:", data); // Para depurar en consola (F12)
+            console.log("Usuarios cargados:", data); 
         });
         break;
 
-      // 2. Si el modal pide ROLES (Por si usas el botón antiguo)
       case 'usuariosPorRol':
         this.rolService.listar().subscribe(data => this.listaRoles = data);
         break;
 
-      // 3. Si el modal pide FOROS
+
       case 'publicacionesPorForo':
          this.foroService.listarTodos().subscribe(data => this.listaForos = data);
          break;
 
-      // 4. Si el modal pide CATEGORIAS
+
       case 'recursosPorCategoria':
          this.catService.listar().subscribe(data => this.listaCategorias = data);
          break;
 
-      // 5. Si el modal pide PUBLICACIONES
+
       case 'comentariosPorPublicacion':
         this.publicacionService.listar().subscribe(data => this.listaPublicaciones = data);
         break;
