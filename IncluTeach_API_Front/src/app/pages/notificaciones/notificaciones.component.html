@@ -1,1 +1,31 @@
-<p>notificaciones works!</p>
+<app-navbar></app-navbar>
+<div class="noti-container">
+  <div class="header">
+    <h1>Centro de Notificaciones</h1>
+    <button mat-stroked-button color="warn" (click)="limpiar()" [disabled]="notificaciones.length === 0">
+      <mat-icon>delete_sweep</mat-icon> Limpiar Todo
+    </button>
+  </div>
+
+  <div class="list-wrapper">
+    @for (noti of notificaciones; track noti.id) {
+      <mat-card class="noti-card" [class.no-visto]="!noti.visto">
+        <div class="content">
+          <div class="info-row">
+            <mat-icon class="status-icon">{{ noti.visto ? 'mark_email_read' : 'mark_email_unread' }}</mat-icon>
+            <p class="desc">{{ noti.descripcion }}</p>
+          </div>
+          <span class="date">{{ noti.fecha | date:'medium' }}</span>
+        </div>
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="verPublicacion(noti)">VER PUBLICACIÓN</button>
+          <button mat-icon-button (click)="toggleVisto(noti)">
+            <mat-icon>{{ noti.visto ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    } @empty {
+      <div class="empty"><mat-icon>notifications_off</mat-icon><p>Sin novedades.</p></div>
+    }
+  </div>
+</div>

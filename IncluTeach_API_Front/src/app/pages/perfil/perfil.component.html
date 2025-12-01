@@ -1,1 +1,57 @@
-<p>perfil works!</p>
+<app-navbar></app-navbar>
+
+<div class="perfil-container">
+  <mat-card class="perfil-card">
+    <mat-card-header>
+      <mat-card-title>Mi Perfil</mat-card-title>
+      <mat-card-subtitle>Actualiza tus datos o gestiona tu cuenta</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form (ngSubmit)="actualizar()" #perfilForm="ngForm">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre Completo</mat-label>
+          <input matInput [(ngModel)]="usuario.nombre" name="nombre" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="usuario.username" name="username" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput [(ngModel)]="usuario.email" name="email" type="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Rol</mat-label>
+          <mat-select [(ngModel)]="usuario.rolId" name="rolId" required>
+            @for (rol of rolesDisponibles; track rol.id) {
+              <mat-option [value]="rol.id">{{ rol.nombre }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>Cambia entre Familiar y Profesional</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="usuario.contrasena" name="contrasena" type="text" placeholder="Nueva contraseña (o confirma la actual)">
+          <mat-hint>Ingrese la misma o una nueva contraseña</mat-hint>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!perfilForm.valid">
+            Guardar Cambios
+          </button>
+          
+          <button mat-button color="warn" type="button" (click)="eliminarCuenta()">
+            Eliminar Cuenta
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,1 +1,105 @@
-<p>foros works!</p>
+<app-navbar></app-navbar>
+
+<div class="foros-container">
+  <div class="header">
+    <h1>Comunidad IncluTeach</h1>
+    <button mat-raised-button color="primary" (click)="crear()">
+      <mat-icon>add_comment</mat-icon> Crear Foro
+    </button>
+  </div>
+
+  <mat-tab-group mat-stretch-tabs="false" animationDuration="0ms">
+    
+    <mat-tab label="Explorar Todos">
+      <div class="grid">
+        @for (foro of forosTodos; track foro.id) {
+          <mat-card class="foro-card">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar"><mat-icon>forum</mat-icon></div>
+              <mat-card-title>{{ foro.titulo }}</mat-card-title>
+              
+              <mat-card-subtitle>
+                <span class="info">
+                  Por: <strong>{{ foro.nombreUsuario }}</strong> | {{ foro.nombreCategoria }}
+                </span>
+                <br>
+                <small>{{ foro.fechaCreacion | date:'mediumDate' }}</small>
+              </mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <p>{{ foro.descripcion }}</p>
+            </mat-card-content>
+            
+            <mat-card-actions align="end">
+              <button mat-stroked-button 
+                      color="primary" 
+                      [disabled]="yaLoSigo(foro.id)"
+                      (click)="seguir(foro)">
+                <mat-icon>{{ yaLoSigo(foro.id) ? 'check' : 'favorite_border' }}</mat-icon>
+                {{ yaLoSigo(foro.id) ? 'SIGUIENDO' : 'SEGUIR' }}
+              </button>
+
+              <button mat-raised-button color="accent" (click)="verPublicaciones(foro)">
+                VER PUBLICACIONES
+              </button>
+              
+              @if (esMio(foro)) {
+                <button mat-icon-button color="primary" (click)="editar(foro)" matTooltip="Editar mi foro">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              }
+
+              @if (puedeEliminar(foro)) {
+                <button mat-icon-button color="warn" (click)="eliminar(foro.id)" matTooltip="Eliminar foro">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          <div class="empty">No hay foros disponibles.</div>
+        }
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Mis Foros Seguidos">
+      <div class="grid">
+        @for (foro of forosSeguidos; track foro.id) {
+          <mat-card class="foro-card seguido">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar seguido"><mat-icon>star</mat-icon></div>
+              <mat-card-title>
+                {{ foro.titulo }}
+                @if (foro.notificacionesActivas) {
+                  <mat-icon style="color: #FFC107; font-size: 16px; height: 16px; width: 16px; vertical-align: top;">notifications_active</mat-icon>
+                }
+              </mat-card-title>
+              <mat-card-subtitle>
+                Creado por: {{ foro.nombreUsuario }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content><p>{{ foro.descripcion }}</p></mat-card-content>
+            
+            <mat-card-actions align="end">
+              <button mat-icon-button 
+                      (click)="toggleNotificacion(foro)" 
+                      [matTooltip]="foro.notificacionesActivas ? 'Desactivar avisos' : 'Activar avisos'">
+                <mat-icon [style.color]="foro.notificacionesActivas ? '#FFC107' : '#BDBDBD'">
+                  {{ foro.notificacionesActivas ? 'notifications_active' : 'notifications_none' }}
+                </mat-icon>
+              </button>
+
+              <button mat-button color="warn" (click)="dejarDeSeguir(foro)">DEJAR DE SEGUIR</button>
+              <button mat-raised-button color="primary" (click)="verPublicaciones(foro)">VER PUBLICACIONES</button>
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          <div class="empty">No sigues ningún foro aún.</div>
+        }
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
