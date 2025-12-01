@@ -1,1 +1,74 @@
-<p>consultas works!</p>
+<app-navbar></app-navbar>
+
+<div class="titulo">Consultas del Sistema</div>
+
+<div class="contenedor-consultas">
+  <div class="columna">
+    <h3>Usuarios</h3>
+    <button class="btn-consulta" (click)="graficoUsuariosPorRol()">Filtrar Usuarios por Rol (Gráfico)</button>
+    <button class="btn-consulta" (click)="usuariosConFavoritos()">Usuarios con Favoritos</button>
+    <button class="btn-consulta" (click)="usuariosQueSiguenForos()">Usuarios que Siguen Foros</button>
+
+    <h3>Actividad</h3>
+    <button class="btn-consulta" (click)="graficoTopUsuarios()">Publicaciones de un Usuario (Top 5)</button>
+    <button class="btn-consulta" (click)="openModal('notificacionesPorUsuario', 'Historial')">Historial Notificaciones</button>
+    <button class="btn-consulta" (click)="openModal('noLeidas', 'No Leídos')">Contador No Leídos</button>
+  </div>
+
+  <div class="columna">
+    <h3>Contenido</h3>
+    <button class="btn-consulta" (click)="graficoPublicacionesPorForo()">Publicaciones por Foro (Gráfico)</button>
+    <button class="btn-consulta" (click)="graficoRecursosPorCategoria()">Recursos por Categoría (Gráfico)</button>
+    
+    <button class="btn-consulta" (click)="openModal('comentariosPorPublicacion', 'Ver Comentarios')">Ver Comentarios</button>
+    <button class="btn-consulta" (click)="openModal('publicacionesPorPalabra', 'Buscar')">🔍 Buscar Publicación</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="modalVisible">
+  <div class="modal-card">
+    <h2 class="modal-title">{{ modalTitle }}</h2>
+    
+    <select *ngIf="modalAction === 'usuariosPorRol'" [(ngModel)]="inputValue" class="modal-input">
+       </select>
+     <select *ngIf="modalAction === 'publicacionesPorUsuario' || modalAction === 'notificacionesPorUsuario' || modalAction === 'noLeidas'" 
+            [(ngModel)]="inputValue" class="modal-input">
+        <option *ngFor="let u of listaUsuarios" [value]="u.id">{{ u.username }}</option>
+     </select>
+     <select *ngIf="modalAction === 'comentariosPorPublicacion'" [(ngModel)]="inputValue" class="modal-input">
+      <option *ngFor="let p of listaPublicaciones" [value]="p.id">{{ p.titulo }}</option>
+    </select>
+    <input *ngIf="modalAction === 'publicacionesPorPalabra'" class="modal-input" [(ngModel)]="inputValue">
+
+    <div class="modal-buttons">
+      <button class="btn-ejecutar" (click)="execute()">Consultar</button>
+      <button class="btn-cerrar" (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div #resultadosRef class="resultados-contenedor" *ngIf="resultados.length > 0 || mostrarGrafico">
+  
+  <div> 
+      <div class="tabla-wrapper">
+        <table class="tabla-excel">
+          <thead>
+            <tr><th *ngFor="let col of columnas">{{ col | titlecase }}</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of resultadosFiltrados">
+              <td *ngFor="let col of columnas">{{ row[col] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+
+  <div *ngIf="mostrarGrafico" class="grafico-container" style="margin-top: 50px;">
+    <button class="btn-cerrar-grafico" (click)="cerrarGrafico()">cerrar gráfico ✕</button>
+    <div>
+        <canvas #chartCanvas></canvas>
+    </div>
+  </div>
+
+</div>

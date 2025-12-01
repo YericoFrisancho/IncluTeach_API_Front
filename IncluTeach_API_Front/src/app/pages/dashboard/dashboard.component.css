@@ -1,0 +1,143 @@
+.dashboard-container {
+  padding: 100px 20px 40px;
+  background-color: #f5f7f6;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0 0 10px 0;
+    font-weight: 300;
+  }
+
+  p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-card {
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: default;
+  
+  /* IMPORTANTE: Esto asegura que todas las tarjetas tengan la misma altura */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  mat-card-header {
+    margin-bottom: 10px;
+  }
+
+  mat-card-content {
+    min-height: 60px;
+    
+    /* Empuja los botones hacia el final de la tarjeta */
+    flex-grow: 1; 
+    
+    p {
+      color: #555;
+      line-height: 1.5;
+    }
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  /* --- COLORES POR TIPO --- */
+
+  /* Foros (Naranja) */
+  &.card-forum .icon-container {
+    background-color: #FFCCBC;
+    color: #E64A19;
+  }
+  &.card-forum button { color: #E64A19; }
+
+  /* Recursos (Azul) */
+  &.card-resources .icon-container {
+    background-color: #BBDEFB;
+    color: #1976D2;
+  }
+  &.card-resources button { color: #1976D2; }
+
+  /* Categorías (Morado) */
+  &.card-categories .icon-container {
+    background-color: #E1BEE7;
+    color: #7B1FA2;
+  }
+  &.card-categories button { color: #7B1FA2; }
+
+  /* Consultas (Verde Azulado / Teal) - NUEVO */
+  &.card-querys .icon-container {
+    background-color: #B2DFDB;
+    color: #00695C;
+  }
+  &.card-querys button { color: #00695C; }
+
+  /* Ayuda (Verde) - Si usas esta clase */
+  &.card-help .icon-container {
+    background-color: #C8E6C9;
+    color: #388E3C;
+  }
+  &.card-help button { color: #388E3C; }
+
+  /* Admin (Rojo) */
+  &.card-admin {
+    border: 1px solid #ffcdd2;
+    background-color: #fffafa;
+    
+    .icon-container {
+      background-color: #FFCDD2;
+      color: #D32F2F;
+    }
+    button { color: #D32F2F; font-weight: bold; }
+  } 
+}
+
+.quote-container {
+  background-color: #e0f2f1; /* Verde muy suave */
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-left: 5px solid #00796B;
+  text-align: center;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #004D40;
+  margin-bottom: 5px;
+}
+
+.author {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #00796B;
+}

@@ -1,1 +1,114 @@
-<p>dashboard works!</p>
+<app-navbar></app-navbar>
+
+<div class="dashboard-container" *ngIf="authService.currentUser$ | async as user">
+  
+  <header class="dashboard-header">
+    <h1>Hola, {{ user.username }} 👋</h1>
+    
+    <div class="quote-container">
+      <p class="quote">"{{ frase }}"</p>
+      <span class="author">- {{ autor }}</span>
+    </div>
+    <p>Bienvenido a IncluTeach. Selecciona una opción para empezar.</p>
+  </header>
+
+  <div class="cards-grid">
+    
+    <mat-card class="dashboard-card card-forum">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>forum</mat-icon>
+        </div>
+        <mat-card-title>Foros</mat-card-title>
+        <mat-card-subtitle>Comunidad y debate</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Participa en discusiones activas sobre educación inclusiva.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button routerLink="/app/foros">ENTRAR</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="dashboard-card card-resources">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>library_books</mat-icon>
+        </div>
+        <mat-card-title>Recursos</mat-card-title>
+        <mat-card-subtitle>Material educativo</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Descarga guías y materiales adaptados para el aprendizaje.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button routerLink="/app/recursos">EXPLORAR</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="dashboard-card card-categories">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>category</mat-icon>
+        </div>
+        <mat-card-title>Categorías</mat-card-title>
+        <mat-card-subtitle>Temas organizados</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Explora contenido filtrado por tipos de discapacidad o tema.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button routerLink="/app/categorias">VER TEMAS</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="dashboard-card card-querys" *ngIf="user.rolId === 3">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>help_outline</mat-icon>
+        </div>
+        <mat-card-title>Consultas</mat-card-title>
+        <mat-card-subtitle>Ayuda profesional</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Realiza preguntas directas a especialistas.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button type="button" routerLink="/app/consultas">CONSULTAR</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="dashboard-card card-admin" *ngIf="user.rolId === 3">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>admin_panel_settings</mat-icon>
+        </div>
+        <mat-card-title>Usuarios</mat-card-title>
+        <mat-card-subtitle>Panel Administrativo</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Administra las cuentas de familiares y profesionales registrados.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button routerLink="/app/usuarios">GESTIONAR</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="dashboard-card card-admin" *ngIf="user.rolId === 3">
+      <mat-card-header>
+        <div mat-card-avatar class="icon-container">
+          <mat-icon>security</mat-icon>
+        </div>
+        <mat-card-title>Roles</mat-card-title>
+        <mat-card-subtitle>Permisos y Accesos</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Administra los tipos de usuario y descripciones del sistema.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button routerLink="/app/roles">CONFIGURAR</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</div>

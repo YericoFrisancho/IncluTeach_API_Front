@@ -1,1 +1,134 @@
-<p>categorias works!</p>
+<app-navbar></app-navbar>
+
+<div class="main-container">
+
+  @if (vistaActual === 'HOME') {
+    <div class="menu-view fade-in">
+      <h1>Panel de Categorías</h1>
+      <p>Selecciona una acción</p>
+      
+      <div class="botones-grandes">
+        <button mat-raised-button color="primary" class="btn-big" (click)="cambiarVista('GESTION')">
+          <mat-icon>settings</mat-icon>
+          <div>
+            <h3>Gestionar</h3>
+            <small>Crear, editar o eliminar</small>
+          </div>
+        </button>
+
+        <button mat-raised-button color="accent" class="btn-big" (click)="cambiarVista('EXPLORAR')">
+          <mat-icon>search</mat-icon>
+          <div>
+            <h3>Explorar</h3>
+            <small>Ver foros y recursos</small>
+          </div>
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (vistaActual === 'GESTION') {
+    <div class="gestion-view fade-in">
+      <div class="header-row">
+        <button mat-icon-button (click)="cambiarVista('HOME')"><mat-icon>arrow_back</mat-icon></button>
+        <h1>Gestión de Categorías</h1>
+        <span class="spacer"></span>
+        <button mat-raised-button color="primary" (click)="crear()">
+          <mat-icon>add</mat-icon> Nueva
+        </button>
+      </div>
+
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="categorias">
+          <ng-container matColumnDef="id"><th mat-header-cell *matHeaderCellDef>ID</th><td mat-cell *matCellDef="let c">{{c.id}}</td></ng-container>
+          <ng-container matColumnDef="nombre"><th mat-header-cell *matHeaderCellDef>Nombre</th><td mat-cell *matCellDef="let c"><strong>{{c.nombre}}</strong></td></ng-container>
+          <ng-container matColumnDef="descripcion"><th mat-header-cell *matHeaderCellDef>Descripción</th><td mat-cell *matCellDef="let c">{{c.descripcion}}</td></ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let c">
+              @if (puedeEditar(c)) {
+                <button mat-icon-button color="primary" (click)="editar(c)"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="eliminar(c.id)"><mat-icon>delete</mat-icon></button>
+              } @else {
+                <span class="read-only">Solo lectura</span>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (vistaActual === 'EXPLORAR') {
+    <div class="explorar-view fade-in">
+      <div class="header-row">
+        @if (rolId !== 1) {
+          <button mat-icon-button (click)="cambiarVista('HOME')"><mat-icon>arrow_back</mat-icon></button>
+        }
+        <h1>Explorar Contenido</h1>
+      </div>
+
+      <mat-card class="filter-card">
+        <div class="controls">
+          
+          <!-- 👇 AQUÍ ESTÁ EL CAMBIO PARA LIMPIAR RESULTADOS 👇 -->
+          <mat-radio-group 
+              [(ngModel)]="tipoExplorar" 
+              (change)="onTipoChange()"
+              color="primary" 
+              class="radio-group">
+            <mat-radio-button value="FORO">Foros</mat-radio-button>
+            <mat-radio-button value="RECURSO">Recursos</mat-radio-button>
+          </mat-radio-group>
+
+          <mat-form-field appearance="outline" class="fill-remaining">
+            <mat-label>Categoría</mat-label>
+            <mat-select [(ngModel)]="categoriaSeleccionadaId">
+              @for (c of categorias; track c.id) {
+                <mat-option [value]="c.id">{{ c.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <!-- BOTÓN BUSCAR CON CLICK -->
+          <button mat-raised-button color="accent" 
+                  (click)="buscar()" 
+                  [disabled]="!categoriaSeleccionadaId">
+            <mat-icon>search</mat-icon> BUSCAR
+          </button>
+        </div>
+      </mat-card>
+
+      <div class="results-grid">
+        @for (item of resultados; track item.id) {
+          <mat-card class="result-card">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar" [class.is-foro]="tipoExplorar==='FORO'">
+                <mat-icon>{{ tipoExplorar==='FORO' ? 'forum' : 'school' }}</mat-icon>
+              </div>
+              <mat-card-title>{{ item.titulo }}</mat-card-title>
+              <mat-card-subtitle>{{ tipoExplorar }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content><p>{{ item.descripcion }}</p></mat-card-content>
+            <mat-card-actions align="end">
+              
+              <!-- BOTÓN VER DETALLE CON CLICK -->
+              <button mat-button color="primary" (click)="verDetalle(item)">
+                VER DETALLE
+              </button>
+            
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          @if (busquedaRealizada) {
+            <p class="empty-msg">No se encontraron resultados en esta categoría.</p>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>

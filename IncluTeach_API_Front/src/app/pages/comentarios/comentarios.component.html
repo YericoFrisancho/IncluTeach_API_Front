@@ -1,1 +1,53 @@
-<p>comentarios works!</p>
+<h2 mat-dialog-title>
+  Comentarios en: "{{ publicacion.titulo }}"
+</h2>
+
+<mat-dialog-content class="content-area">
+  <div class="comments-list">
+    @for (com of comentarios; track com.id) {
+      <div class="comment-row" [class.own]="esMio(com)">
+        
+        <img [src]="externalApi.getAvatarUrl(com.nombreUsuario || 'user')" 
+             alt="Avatar" 
+             class="avatar-img">
+        <div class="bubble">
+          <div class="bubble-header">
+            <span class="user">{{ com.nombreUsuario }}</span>
+            <span class="date">{{ com.fecha | date:'short' }}</span>
+            
+            @if (esMio(com) || puedeEliminar(com)) {
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="small-btn">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              
+              <mat-menu #menu="matMenu">
+                @if (esMio(com)) {
+                  <button mat-menu-item (click)="editar(com)">
+                    <mat-icon>edit</mat-icon> Editar
+                  </button>
+                }
+                
+                @if (puedeEliminar(com)) {
+                  <button mat-menu-item (click)="eliminar(com.id)">
+                    <mat-icon>delete</mat-icon> Eliminar
+                  </button>
+                }
+              </mat-menu>
+            }
+          </div>
+          <p class="text">{{ com.contenido }}</p>
+        </div>
+
+      </div>
+    } @empty {
+      <div class="empty">No hay comentarios aún.</div>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="crear()">
+    <mat-icon>add_comment</mat-icon> Comentar
+  </button>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

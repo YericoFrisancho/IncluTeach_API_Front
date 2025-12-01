@@ -1,0 +1,120 @@
+/* --- Estructura del Modal --- */
+.content-area { 
+  min-height: 300px; 
+  max-height: 60vh; 
+  overflow-y: auto; 
+  padding-top: 10px;
+}
+
+.comments-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 15px; 
+}
+
+/* --- Fila de Comentario --- */
+.comment-row {
+  display: flex; 
+  gap: 10px;
+  align-items: flex-start; 
+}
+
+.comment-row.own { 
+  flex-direction: row-reverse; 
+}
+.comment-row.own .bubble { 
+  background: #E0F2F1; 
+  border-radius: 12px 0 12px 12px; 
+}
+
+/* --- AVATAR NUEVO (IMAGEN) --- */
+.avatar-img {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  background-color: #f0f0f0; /* Fondo mientras carga */
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+  object-fit: cover; /* Asegura que no se deforme */
+}
+
+/* --- Burbuja de Texto --- */
+.bubble {
+  background: #F5F5F5; 
+  padding: 12px 16px; 
+  border-radius: 0 12px 12px 12px; 
+  max-width: 80%; 
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.bubble-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 6px; 
+  min-height: 24px; 
+}
+
+.user { 
+  font-weight: bold; 
+  color: #333; 
+  font-size: 0.9rem;
+  margin-right: 10px; 
+}
+
+.date { 
+  color: #999; 
+  font-size: 0.75rem;
+  margin-right: auto; 
+}
+
+.text { 
+  margin: 0; 
+  color: #444; 
+  line-height: 1.5; 
+  word-wrap: break-word;
+}
+
+/* --- BOTÓN DE 3 PUNTOS (SOLUCIÓN MATERIAL 3) --- */
+.small-btn {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  border-radius: 50%;
+  background-color: transparent !important;
+  border: none;
+  outline: none;
+  
+  --mat-mdc-icon-button-state-layer-color: transparent;
+}
+
+.small-btn mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+  margin: 0 !important;
+}
+
+.small-btn:focus {
+  outline: none !important;
+}
+
+.small-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* --- Estado Vacío --- */
+.empty { 
+  text-align: center; 
+  color: #999; 
+  padding: 30px; 
+  font-style: italic;
+}

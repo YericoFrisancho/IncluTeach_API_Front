@@ -1,0 +1,202 @@
+.titulo {
+  text-align: center;
+  font-size: 32px;
+  color: #064b47;
+  margin-top: 80px;
+  font-weight: bold;
+}
+
+.contenedor-consultas {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 50px;
+  flex-wrap: wrap; /* Para móviles */
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Títulos de secciones */
+.columna h3 {
+  color: #555;
+  border-bottom: 2px solid #00796B;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  text-align: center; /* También centramos los títulos de sección para que se vea ordenado */
+}
+
+.btn-consulta {
+  padding: 18px;
+  width: 330px;
+  background: #5aa9a4;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  
+  /* --- CAMBIO AQUÍ: Centrado --- */
+  text-align: center; 
+  display: flex;            /* Flex para centrar vertical y horizontalmente si hay íconos */
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-consulta:hover {
+  background: #4b8f8a;
+  transform: scale(1.03);
+}
+
+/* Botón Volver */
+.btn-back {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  background: none;
+  border: 2px solid #00796B;
+  color: #00796B;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.modal-card {
+  background: white;
+  width: 420px;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.25s;
+}
+
+.modal-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #064b47;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-input {
+  display: block;
+  width: 90%;
+  margin: 15px auto 25px auto;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: white;
+  text-align: center; /* Texto centrado al escribir */
+}
+
+.modal-input::placeholder {
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-ejecutar {
+  padding: 12px 20px;
+  background: #4b8f8a;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cerrar {
+  padding: 12px 20px;
+  background: #bbb;
+  color: black;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+/* --- RESULTADOS --- */
+.resultados-contenedor {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto 80px auto;
+  scroll-margin-top: 120px; 
+}
+
+/* Tabla */
+.tabla-wrapper {
+  width: 100%;
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+.tabla-excel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  color: #064b47;
+  min-width: 600px;
+}
+
+.tabla-excel th {
+  background: #5aa9a4;
+  color: white;
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tabla-excel td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #dce7e7;
+}
+
+.tabla-excel tbody tr:hover {
+  background: #e2f4f3;
+}
+
+/* Vista Número Grande */
+.numero-box {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.gran-numero {
+  font-size: 4rem;
+  color: #00796B;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
