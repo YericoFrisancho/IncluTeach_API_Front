@@ -1,1 +1,65 @@
-<p>navbar works!</p>
+<mat-toolbar class="custom-navbar">
+  <div class="nav-left">
+    <button mat-stroked-button class="nav-link" routerLink="/">Inicio</button>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="nav-right">
+    <ng-container *ngIf="(userDisplayName$ | async) === null; else loggedIn">
+      <button mat-stroked-button class="nav-link" routerLink="/login">Iniciar sesión</button>
+      <button mat-stroked-button class="btn-registro" routerLink="/registro">Registrarse</button>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-btn">
+        
+        <div class="btn-content">
+          
+          
+          <div class="avatar-wrapper"
+               [matBadge]="(notiService.contador$ | async)" 
+               [matBadgeHidden]="(notiService.contador$ | async) === 0"
+               matBadgeColor="warn"
+               matBadgeSize="small">
+               
+            
+            <img [src]="externalApi.getAvatarUrl((userName$ | async)!)" 
+                 alt="Avatar"
+                 class="nav-avatar">
+          </div>
+          
+
+          <span>{{ userDisplayName$ | async }}</span>
+          
+          <mat-icon>expand_more</mat-icon>
+        </div>
+
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/app/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span>Ir al Dashboard</span>
+        </button>
+        
+        <button mat-menu-item routerLink="/app/notificaciones">
+          <mat-icon>notifications</mat-icon>
+          <span>Centro de Notificaciones</span>
+        </button>
+
+        <button mat-menu-item routerLink="/app/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Mi Perfil</span>
+        </button>
+
+        <mat-divider></mat-divider> 
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
+      </mat-menu>
+    </ng-template>
+  </div>
+</mat-toolbar>
