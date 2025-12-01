@@ -1,0 +1,132 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 24px 10px 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.foro-subtitle {
+  margin: 8px 0 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.content-area {
+  min-height: 400px;
+  padding: 24px !important;
+}
+
+.foro-desc {
+  background: #E0F2F1;
+  color: #00695C;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.6;
+  border-left: 5px solid #00796B;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+
+  h3 {
+    margin: 0;
+    color: #00796B;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+}
+
+.grid-pubs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pub-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  }
+
+  &.own-card {
+    border: 2px solid #B2DFDB;
+    background-color: #FAFAFA;
+  }
+
+  mat-card-header {
+    padding: 16px 16px 0 16px;
+    margin-bottom: 10px;
+  }
+
+  mat-card-content {
+    padding: 0 16px 16px 16px;
+    p {
+      margin: 0;
+      color: #444;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+  }
+
+  mat-card-actions {
+    padding: 8px 16px 16px 16px;
+    border-top: 1px solid #f5f5f5;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+
+.pub-card button:focus, 
+.pub-card button.cdk-focused, 
+.pub-card button.cdk-program-focused {
+  background-color: transparent !important;
+  outline: none;
+}
+.pub-card button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  border: 2px dashed #ddd;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 15px;
+    color: #ccc;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}

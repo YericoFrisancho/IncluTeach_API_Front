@@ -1,1 +1,120 @@
-<p>recursos works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="header">
+    <h1>Bibliotecas y Recursos</h1>
+    @if (puedeCrear) {
+      <button mat-raised-button color="primary" (click)="crear()">
+        <mat-icon>add_circle</mat-icon> Nuevo Recurso
+      </button>
+    }
+  </div>
+
+  <mat-tab-group mat-stretch-tabs="false" animationDuration="0ms">
+    
+    <mat-tab label="Explorar Recursos">
+      <div class="grid">
+        @for (rec of recursosTodos; track rec.id) {
+          <mat-card class="resource-card">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar"><mat-icon>school</mat-icon></div>
+              <mat-card-title>{{ rec.titulo }}</mat-card-title>
+              <mat-card-subtitle>
+                {{ rec.nombreCategoria }} | Por: <strong>{{ rec.nombreUsuario }}</strong>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content><p>{{ rec.descripcion }}</p></mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-icon-button (click)="toggleFavorito(rec)" 
+                      [color]="esFavorito(rec.id) ? 'warn' : ''"
+                      [matTooltip]="esFavorito(rec.id) ? 'Quitar de favoritos' : 'Guardar en favoritos'">
+                <mat-icon>{{ esFavorito(rec.id) ? 'favorite' : 'favorite_border' }}</mat-icon>
+              </button>
+              
+              @if (esMio(rec)) {
+                <button mat-icon-button color="primary" (click)="editar(rec)"><mat-icon>edit</mat-icon></button>
+              }
+              @if (puedeEliminar(rec)) {
+                <button mat-icon-button color="warn" (click)="eliminar(rec.id)"><mat-icon>delete</mat-icon></button>
+              }
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          <div class="empty">No hay recursos disponibles.</div>
+        }
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Mis Favoritos">
+      <div class="grid">
+        @for (rec of recursosFavoritos; track rec.id) {
+          <mat-card class="resource-card fav">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar fav"><mat-icon>favorite</mat-icon></div>
+              <mat-card-title>{{ rec.titulo }}</mat-card-title>
+              <mat-card-subtitle>{{ rec.nombreCategoria }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content><p>{{ rec.descripcion }}</p></mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-button color="warn" (click)="toggleFavorito(rec)">QUITAR DE FAVORITOS</button>
+            </mat-card-actions>
+          </mat-card>
+        } @empty {
+          <div class="empty">Aún no tienes favoritos guardados.</div>
+        }
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Biblioteca Mundial (API)">
+      <div class="biblioteca-container">
+        
+        <div class="search-box">
+          <input [(ngModel)]="busquedaLibro" 
+                 placeholder="Ej: Autismo, Educación, Dislexia..." 
+                 (keyup.enter)="buscarLibrosExternos()"
+                 class="api-input">
+          <button mat-raised-button color="accent" (click)="buscarLibrosExternos()">
+            <mat-icon>search</mat-icon> Buscar Libros
+          </button>
+        </div>
+
+        <div *ngIf="cargandoLibros" class="loading">
+          <mat-spinner diameter="40"></mat-spinner>
+          <p>Buscando en Open Library...</p>
+        </div>
+
+        <div class="grid" *ngIf="!cargandoLibros">
+          @for (libro of librosEncontrados; track libro.titulo) {
+            <mat-card class="book-card">
+              <div class="cover-wrapper">
+                <img [src]="libro.portada" 
+                     (error)="onImageError($event)" 
+                     alt="Portada" 
+                     class="book-cover">
+              </div>
+              
+              <mat-card-header>
+                <mat-card-title class="book-title">{{ libro.titulo }}</mat-card-title>
+                <mat-card-subtitle>
+                   {{ libro.autor }} | Año: {{ libro.anio }}
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-actions align="end">
+                 <a mat-button color="primary" href="https://openlibrary.org/" target="_blank">
+                   VER EN OPENLIBRARY
+                 </a>
+              </mat-card-actions>
+            </mat-card>
+          } @empty {
+            <div class="empty" *ngIf="busquedaLibro && !cargandoLibros">
+              No se encontraron libros. Intenta buscar en inglés (ej: "Autism").
+            </div>
+          }
+        </div>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

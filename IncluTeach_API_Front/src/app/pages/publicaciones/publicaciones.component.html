@@ -1,1 +1,71 @@
-<p>publicaciones works!</p>
+<h2 mat-dialog-title>
+  Foro: {{ foroData.titulo }}
+  <br>
+  <small style="font-size: 0.9rem; color: #666; font-weight: normal;">
+    Creado por {{ foroData.nombreUsuario }} | Categoría: {{ foroData.nombreCategoria }}
+  </small>
+</h2>
+
+<mat-dialog-content class="content-area">
+  <div class="foro-desc">
+    <p>{{ foroData.descripcion }}</p>
+  </div>
+
+  <div class="actions-row">
+    <h3>Publicaciones ({{ publicaciones.length }})</h3>
+    <button mat-raised-button color="primary" (click)="crear()">
+      <mat-icon>add</mat-icon> Nueva Publicación
+    </button>
+  </div>
+
+  <div class="grid-pubs">
+    @for (pub of publicaciones; track pub.id) {
+      <mat-card class="pub-card" [class.own-card]="esMio(pub)">
+        <mat-card-header>
+          
+          <img mat-card-avatar 
+               [src]="externalApi.getAvatarUrl(pub.nombreUsuario || 'user')" 
+               alt="Avatar" 
+               class="avatar-img">
+          <mat-card-title>{{ pub.titulo }}</mat-card-title>
+          <mat-card-subtitle>
+            Por: <strong>{{ pub.nombreUsuario }}</strong> | {{ pub.fecha | date:'medium' }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ pub.contenido }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          
+          <button mat-stroked-button color="accent" (click)="verComentarios(pub)">
+            <mat-icon>chat</mat-icon> COMENTARIOS
+          </button>
+
+          @if (esMio(pub)) {
+            <button mat-icon-button color="primary" (click)="editar(pub)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+          }
+
+          @if (puedeEliminar(pub)) {
+            <button mat-icon-button color="warn" (click)="eliminar(pub.id)" matTooltip="Eliminar">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+
+        </mat-card-actions>
+      </mat-card>
+    } @empty {
+      <div class="empty-state">
+        <mat-icon>post_add</mat-icon>
+        <p>No hay publicaciones en este foro. ¡Sé el primero!</p>
+      </div>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
